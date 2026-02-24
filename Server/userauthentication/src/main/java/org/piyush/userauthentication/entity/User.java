@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
+
 @Entity
-@Table(
-        name = "users",
-        indexes = {
+@Table(name = "users", indexes = {
                 @Index(name = "idx_users_email", columnList = "email")
-        }
-)
+})
 
 @Getter
 @Setter
@@ -19,29 +17,35 @@ import java.util.UUID;
 @Builder
 
 public class User {
-    @Id
-    @GeneratedValue
-    private UUID id;
+        @Id
+        @GeneratedValue
+        private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+        @Column(nullable = false, unique = true)
+        private String email;
 
-    @Column(nullable = false)
-    private String phone;
+        @Column
+        private String username;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+        @Column
+        private String phone;
 
-    @Column(nullable = false)
-    private String role;
+        @Column(name = "password_hash", nullable = false)
+        private String passwordHash;
 
-    @Column(name = "is_verified", nullable = false)
-    private boolean isVerified = false;
+        @Column(nullable = false)
+        private String role;
 
-    @Column(name = "failed_attempts", nullable = false)
-    private int failedAttempts = 0;
+        @Builder.Default
+        @Column(name = "is_verified", nullable = false)
+        private boolean isVerified = false;
 
-    @Column(name = "account_locked", nullable = false)
-    private boolean accountLocked = false;
+        @Builder.Default
+        @Column(name = "failed_attempts", nullable = false)
+        private int failedAttempts = 0;
+
+        @Builder.Default
+        @Column(name = "account_locked", nullable = false)
+        private boolean accountLocked = false;
 
 }
